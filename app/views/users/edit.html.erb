@@ -1,0 +1,18 @@
+<h1>プロフィール編集</h1>
+
+<%= form_with model: @user do |f| %>
+  <div>
+    <%= f.label :name, "名前" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email, "メールアドレス" %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.submit "更新する" %>
+  </div>
+  
+<% end %>

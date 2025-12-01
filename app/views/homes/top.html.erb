@@ -1,0 +1,13 @@
+
+
+<p>筋トレ記録SNS 『マッスルメモリー』へようこそ！</p>
+
+<% if user_signed_in? %>
+  <p><%= current_user.name || current_user.email %> さん今日も筋トレがんばりましょう！！</p>
+
+  <p><%= link_to "みんなの投稿を見る", posts_path %></p>
+<% else %>
+
+  <p>ログインすると、筋トレ記録やみんなの投稿を見られるようになります。</p>
+
+<% end %>

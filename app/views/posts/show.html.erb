@@ -1,0 +1,14 @@
+
+<h2><%= @post.title %></h2>
+
+<p>投稿者: <%= @post.user.name || @post.user.email %></p>
+<p><%= simple_format(@post.body) %></p>
+
+<% if user_signed_in? && @post.user == current_user %>
+  <p>
+    <%= link_to"編集",edit_post_path(@post) %> |
+    <%= link_to "削除",@post, method: :delete, data:{confirm: "削除しますか？"} %>
+  </p>
+<% end %>
+
+<p><%= link_to "投稿一覧に戻る", posts_path %></p>
