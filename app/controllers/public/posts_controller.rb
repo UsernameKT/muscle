@@ -1,4 +1,4 @@
-class PostsController < ApplicationController
+class Public::PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   def index
     @posts = Post.includes(:user) .order(created_at: :desc)
@@ -6,6 +6,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def new
@@ -19,6 +20,7 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  
   end
 
   def edit
@@ -43,6 +45,10 @@ class PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:title, :body, :is_public)
+  end
+
+  def postcomment_params
+    params.require(:post_comment).permit(:comment)
   end
   
 end

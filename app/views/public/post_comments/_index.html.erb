@@ -1,0 +1,5 @@
+<td>
+  <% if @post_comment.user == current_user %>
+    <%= link_to "Destroy", post_post_comment_path(post, @post_comment), method: :delete, class: "btn btn-sm btn-danger", "data-confirm" => "本当に消しますか？" %>
+  <% end %>
+</td>

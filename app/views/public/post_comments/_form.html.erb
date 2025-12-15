@@ -1,0 +1,21 @@
+<%= form_with(model:[post, post_comment], local: true) do |f| %>
+  <%= f.text_area :comment, rows:'5',placeholder: "応援コメントをしよう!", class: "w-100" %>
+  <%= f.submit "送信" %>
+<% end %>
+
+<table>
+  <tbody>
+      <% post.post_comments.each do |post_comment| %>
+      <tr>
+        <td>
+          <%= link_to user_path(post_comment.user) do %>
+            <%= post_comment.user.name %>
+          <% end %>
+        </td>
+        <td><%= post_comment.comment %></td>
+        <td>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>

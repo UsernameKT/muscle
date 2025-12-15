@@ -12,3 +12,14 @@
 <% end %>
 
 <p><%= link_to "投稿一覧に戻る", posts_path %></p>
+
+<%= render "public/post_comments/index", post: @post %>
+ <%= render "public/post_comments/form", post: @post, post_comment: @post_comment %>
+
+ <td>
+  コメント数：<%= @post.post_comments.count %>
+</td>
+
+<td>
+  <%= render 'public/favorites/favorite', post: @post %>
+</td>

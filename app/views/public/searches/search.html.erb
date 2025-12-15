@@ -1,0 +1,17 @@
+<% if @model == 'user' %>
+  <h3>Users search for "<%= @content %>"</h3>
+  <% @records.each do |user| %>
+    <div>
+      <p>投稿者: <%= user.name || user.email %></p>
+    </div>
+  <% end %>
+<% elsif @model == 'post' %>
+  <h3>Posts search for "<%= @content %>"</h3>
+  <% @records.each do |post| %>
+    <div>
+      <h3><%= link_to post.title, post_path(post) %></h3>
+      <p>投稿者: <%= post.user.name || post.user.email %></p>
+      <p><%= simple_format(post.body) %></p>
+    </div>
+  <% end %>
+<% end %>
