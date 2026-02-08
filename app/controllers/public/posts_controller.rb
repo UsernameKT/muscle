@@ -16,8 +16,10 @@ class Public::PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to @post,notice: "投稿しました"
+      flash[:notice] = "投稿に成功しました。"
+      redirect_to @post
     else
+      flash[:notice] = "投稿に失敗しました。"
       render :new
     end
   
