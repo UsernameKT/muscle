@@ -7,7 +7,16 @@ class Public::UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+  
+    if user_signed_in? && @user == current_user
+      
+      @posts = @user.posts.order(created_at: :desc)
+    else
+      
+      @posts = @user.posts.where(is_public: true).order(created_at: :desc)
+    end
   end
+  
 
   def edit
   end
@@ -24,6 +33,17 @@ class Public::UsersController < ApplicationController
     @user.destroy
     redirect_to root_path, notice: "退会しました"
   end
+
+  def following
+    @user = User.find(params[:id])
+    @users = @user.following
+  end
+  
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followers
+  end
+  
 
   private
 

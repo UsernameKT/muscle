@@ -1,7 +1,19 @@
 
 <h2><%= @post.title %></h2>
 
-<p>投稿者: <%= @post.user.name || @post.user.email %></p>
+<p>
+  投稿者：
+  <%= link_to(@post.user.name || @post.user.email, user_path(@post.user)) %>
+</p>
+<% unless @post.user == current_user %>
+  <% if current_user.following?(@post.user) %>
+    <% rel = current_user.active_relationships.find_by(followed_id: @post.user.id) %>
+    <%= button_to "フォロー解除", relationship_path(rel), method: :delete %>
+  <% else %>
+    <%= button_to "フォローする", relationships_path(followed_id: @post.user.id), method: :post %>
+  <% end %>
+<% end %>
+
 <p><%= simple_format(@post.body) %></p>
 
 <% if user_signed_in? && @post.user == current_user %>
@@ -10,6 +22,13 @@
     <%= link_to "削除",@post, method: :delete, data:{confirm: "削除しますか？"} %>
   </p>
 <% end %>
+
+<p>投稿日：<%= l @post.created_at, format: :short %></p>
+<% if user_signed_in? && @post.user == current_user %>
+  <span><%= @post.is_public ? "【公開】" : "【非公開】" %></span>
+<% end %>
+
+
 
 <p><%= link_to "投稿一覧に戻る", posts_path %></p>
 

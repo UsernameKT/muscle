@@ -1,5 +1,5 @@
 
-<h2>投稿一覧</h2>
+<h2>投稿一覧<i class="fa-solid fa-dumbbell"></i></h2>
 
 <% if user_signed_in? %>
   <p><%= link_to "新規投稿",new_post_path %></p>
@@ -10,5 +10,10 @@
     <h3><%= link_to post.title, post_path(post) %></h3>
     <p>投稿者: <%= post.user.name || post.user.email %></p>
     <p><%= simple_format(post.body) %></p>
+    <p>投稿日：<%= l post.created_at, format: :short %></p>
+    <% if user_signed_in? && post.user == current_user %>
+      <span><%= post.is_public ? "【公開】" : "【非公開】" %></span>
+    <% end %>
   </div>
+
 <% end %>

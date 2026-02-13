@@ -30,3 +30,7 @@
   </div>
   
 <% end %>
+
+<% if user_signed_in? %>
+  <p><%= link_to "みんなの投稿を見る", posts_path %></p>
+<% end %>

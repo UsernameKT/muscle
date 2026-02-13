@@ -18,24 +18,27 @@ Rails.application.routes.draw do
       }
       # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-    scope module: :public do
-
-      root to: "homes#top"
-      get "about", to: "homes#about"
-
-      resources :users, only: [:show]
-
-      resources :posts
-
-      get "search", to: "searches#search"
-
-      resources :posts, only: [:index, :show, :edit, :create, :destroy, :update] do
-        resources :post_comments, only: [:create, :destroy]
-        resources :favorites, only: [:create, :destroy]
-      end
-
+      scope module: :public do
+        root to: "homes#top"
+        get "about", to: "homes#about"
       
+        resources :users, only: [:show] do 
+          member do
+            get :following
+            get :followers
+          end
+        end
 
-    end
+        get "search", to: "searches#search"
+      
+        resources :posts, only: [:index, :show, :new, :edit, :create, :destroy, :update] do
+          resources :post_comments, only: [:create, :destroy, :edit, :update]
+          resources :favorites, only: [:create, :destroy]
+        end
+
+        resources :relationships, only: [:create, :destroy]
+
+      end
+      
 
 end

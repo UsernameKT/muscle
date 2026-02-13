@@ -1,0 +1,8 @@
+<h3>コメント編集</h3>
+
+<%= form_with model: [@post, @post_comment], local: true do |f| %>
+  <%= f.text_area :comment, rows: 5 %>
+  <%= f.submit "更新" %>
+<% end %>
+
+<%= link_to "戻る", post_path(@post) %>

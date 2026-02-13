@@ -1,5 +1,32 @@
-<td>
-  <% if @post_comment.user == current_user %>
-    <%= link_to "Destroy", post_post_comment_path(post, @post_comment), method: :delete, class: "btn btn-sm btn-danger", "data-confirm" => "本当に消しますか？" %>
-  <% end %>
-</td>
+<table>
+  <tbody>
+    <% post.post_comments.each do |c| %>
+      <tr>
+        <td>
+          <%= link_to user_path(c.user) do %>
+            <%= c.user.name %>
+          <% end %>
+        </td>
+
+        <td>
+           <%= c.comment %>
+           <small style="margin-left: 8px;">
+             <%= l c.created_at, format: :short %>
+           </small>
+        </td>
+
+
+        <td>
+          <% if c.user_id == current_user.id || post.user_id == current_user.id %>
+            <%= button_to "削除",post_post_comment_path(@post, c),method: :delete,data: { turbo_confirm: "削除しますか？" } %>
+          <% end %>
+        </td>
+        <td>
+          <% if c.user_id == current_user.id %>
+             <%= link_to "編集", edit_post_post_comment_path(post, c) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

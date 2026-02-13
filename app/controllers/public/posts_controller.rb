@@ -1,13 +1,31 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+
+
   def index
-    @posts = Post.includes(:user) .order(created_at: :desc)
+    if user_signed_in?
+      @posts = Post.where(is_public: true)
+                   .or(Post.where(user_id: current_user.id))
+                   .order(created_at: :desc)
+    else
+      @posts = Post.where(is_public: true).order(created_at: :desc)
+    end
   end
+  
+  
 
   def show
     @post = Post.find(params[:id])
+  
+    if !@post.is_public && @post.user != current_user
+      redirect_to posts_path, alert: "この投稿は非公開です"
+      return
+    end
+
     @post_comment = PostComment.new
   end
+  
+  
 
   def new
     @post = Post.new
