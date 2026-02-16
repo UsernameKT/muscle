@@ -1,4 +1,5 @@
-<% if guest_user? %>
+<% unless current_user&.guest_user? %>
+
 
   ❤️ <%= post.favorites.count %>
 
