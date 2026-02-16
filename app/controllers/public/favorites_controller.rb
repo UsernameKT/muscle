@@ -1,4 +1,8 @@
 class Public::FavoritesController < ApplicationController
+
+  before_action :authenticate_user!
+  before_action :reject_guest!, only: [:create, :destroy]
+
   def create
     @post = Post.find(params[:post_id])
     current_user.favorites.create(post_id: @post.id)

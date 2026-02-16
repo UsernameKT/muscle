@@ -15,6 +15,16 @@ class Public::UsersController < ApplicationController
       
       @posts = @user.posts.where(is_public: true).order(created_at: :desc)
     end
+
+    def following
+      @user = User.find(params[:id])
+      @users = @user.following  
+    end
+  
+    def followers
+      @user = User.find(params[:id])
+      @users = @user.followers  
+    end
   end
   
 

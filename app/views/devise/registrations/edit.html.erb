@@ -16,6 +16,12 @@
   </div>
 
   <div>
+    自己紹介（任意・160文字まで）<br>
+    <%= f.text_area :bio, rows: 4, placeholder: "例）筋トレ歴3年。好きな言葉はパンプアップ" %>
+
+  </div>
+
+  <div>
     新しいパスワード（変更しない場合は空欄）
     <% if @minimum_password_length %>
       （<%= @minimum_password_length %>文字以上）

@@ -1,6 +1,17 @@
 class ApplicationController < ActionController::Base
   before_action :configure_authentication
 
+  helper_method :guest_user?
+
+  def guest_user?
+    user_signed_in? && current_user.email == "guest@example.com"
+  end
+
+  def reject_guest!
+    return unless guest_user?
+    redirect_to root_path, alert: "ゲストユーザーは閲覧専用です"
+  end
+
   before_action :configure_permitted_parameters,
    if: :devise_controller?
     before_action :configure_authentication
@@ -8,9 +19,9 @@ class ApplicationController < ActionController::Base
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up,keys:[:name])
+    devise_parameter_sanitizer.permit(:sign_up,keys:[:name, :bio])
 
-    devise_parameter_sanitizer.permit(:account_update,keys:[:name])
+    devise_parameter_sanitizer.permit(:account_update,keys:[:name, :bio])
   end
  
   def configure_authentication

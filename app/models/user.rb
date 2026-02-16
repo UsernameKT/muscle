@@ -64,6 +64,13 @@ class User < ApplicationRecord
     following.include?(user)
     end
 
+    validates :bio, length: { maximum: 160 }, allow_blank: true
+
+
+    def favorited?(post)
+      favorites.exists?(post_id: post.id)
+    end
+
 
 
 end

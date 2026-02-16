@@ -2,6 +2,8 @@ class Public::PostCommentsController < ApplicationController
   before_action :authenticate_user! 
   before_action :set_post
   before_action :set_post_comment, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :reject_guest!, only: [:create, :destroy]
 
   def create
     @post_comment = current_user.post_comments.new(post_comment_params)

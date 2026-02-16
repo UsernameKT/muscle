@@ -1,6 +1,6 @@
 <h2><%= @user.name %> のフォロー</h2>
 
-<% if @users.any? %>
+<% unless guest_user? %>
   <% @users.each do |u| %>
     <div>
       <%= link_to u.name, user_path(u) %>

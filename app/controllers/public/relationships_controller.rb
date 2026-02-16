@@ -1,5 +1,7 @@
 class Public::RelationshipsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_user!
+  before_action :reject_guest!, only: [:create, :destroy]
 
   def create
     user = User.find(params[:followed_id])
