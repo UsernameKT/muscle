@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_authentication
 
-  helper_method :guest_user
+  helper_method :guest_user?
 
   def guest_user?
     user_signed_in? && current_user.email == "guest@example.com"
