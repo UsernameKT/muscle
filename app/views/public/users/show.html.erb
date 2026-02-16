@@ -40,16 +40,16 @@
 <% end %>
 
 
-<% unless guest_user? %>
+<% unless current_user&.guest_user? %>
     <%= link_to "フォロー：#{@user.following.count}", following_user_path(@user) %>
     <%= link_to "フォロワー：#{@user.followers.count}", followers_user_path(@user) %>
 <% end %>
 
-<% unless guest_user? %>
+<% unless current_user&.guest_user? %>
   <h3>投稿一覧</h3>
 <% end %>
 
-<% unless guest_user? %>
+<% unless current_user&.guest_user? %>
   <p><%= link_to "新規投稿", new_post_path %></p>
 <% end %>
 

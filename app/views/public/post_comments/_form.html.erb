@@ -1,4 +1,4 @@
-<% unless guest_user? %>
+<% unless current_user&.guest_user? %>
   <div style="color: red;">
     <ul>
       <% post_comment.errors.full_messages.each do |msg| %>
@@ -8,7 +8,7 @@
   </div>
 <% end %>
 
-<% unless guest_user? %>
+<% unless current_user&.guest_user? %>
   <%= form_with model: [post, post_comment], local: true do |f| %>
     <%= f.text_area :comment, rows: 5, placeholder: "応援コメントをしよう！" %>
     <%= f.submit "送信" %>
