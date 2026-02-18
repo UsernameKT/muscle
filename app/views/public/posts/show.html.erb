@@ -1,48 +1,93 @@
+<div class="card shadow-sm mb-4">
 
-<h2><%= @post.title %></h2>
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <%= link_to "← 投稿一覧", posts_path, class: "btn btn-outline-secondary btn-sm" %>
 
-<p>
-  投稿者：
-  <%= link_to(@post.user.name || @post.user.email, user_path(@post.user)) %>
-</p>
-<% if user_signed_in? && !guest_user? && current_user != @post.user %>
-  <% if current_user.following?(@post.user) %>
-    <%= link_to "フォロー解除",
-      relationship_path(current_user.active_relationships.find_by(followed_id: @post.user.id)),
-      method: :delete %>
-  <% else %>
-    <%= link_to "フォローする",
-      relationships_path(followed_id: @post.user.id),
-      method: :post %>
+    <% if user_signed_in? && @post.user == current_user %>
+      <div class="d-flex gap-2">
+        <%= link_to "編集", edit_post_path(@post), class: "btn btn-outline-primary btn-sm" %>
+        <%= button_to "削除", post_path(@post),
+              method: :delete,
+              form: { data: { turbo_confirm: "削除しますか？" } },
+              class: "btn btn-outline-danger btn-sm" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card-body">
+
+
+    
+    <h2 class="fw-bold mb-3"><%= @post.title %><i class="fa-solid fa-fire-flame-curved"></i></h2>
+
+    
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+  <div class="text-muted">
+    投稿者：
+    <%= link_to @post.user.name, user_path(@post.user), class: "text-decoration-none" %>
+  </div>
+
+  <% if user_signed_in? && current_user != @post.user && !current_user.guest_user? %>
+    <%= render "public/relationships/follow_button", user: @post.user %>
   <% end %>
-<% end %>
+
+</div>
 
 
-<p><%= simple_format(@post.body) %></p>
+      <% if user_signed_in? && !guest_user? && current_user != @post.user %>
+        <%= render "public/relationships/follow_button", user: @post.user %>
+      <% end %>
+    </div>
 
-<% if user_signed_in? && @post.user == current_user %>
-  <p>
-    <%= link_to"編集",edit_post_path(@post) %> |
-    <%= link_to "削除",@post, method: :delete, data:{confirm: "削除しますか？"} %>
-  </p>
-<% end %>
+    
+    <div class="mb-4">
+      <%= simple_format(@post.body) %>
+    </div>
 
-<p>投稿日：<%= l @post.created_at, format: :short %></p>
-<% if user_signed_in? && @post.user == current_user %>
-  <span><%= @post.is_public ? "【公開】" : "【非公開】" %></span>
-<% end %>
+    
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-muted small">
+        投稿日：<%= l @post.created_at, format: :short %>
+      </div>
+
+      <div class="d-flex gap-3">
+        <%= render "public/favorites/favorite", post: @post %>
+        💬 <%= @post.post_comments.count %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      <div class="mb-3">
+          <%= link_to "← 投稿一覧に戻る", posts_path, class: "btn btn-outline-secondary" %>
+        </div>
+      </div>
+
+    
+    <% if user_signed_in? && @post.user == current_user %>
+      <hr>
+      <div class="d-flex gap-2">
+        <%= link_to "編集", edit_post_path(@post), class: "btn btn-outline-primary" %>
+        <%= link_to "削除",
+                    @post,
+                    data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+                    class: "btn btn-danger" %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="fw-bold mb-3">💬 コメント</h5>
 
-<p><%= link_to "投稿一覧に戻る", posts_path %></p>
+    <div class="mb-3">
+      <%= render "public/post_comments/index", post: @post %>
+    </div>
 
-<%= render "public/post_comments/index", post: @post %>
- <%= render "public/post_comments/form", post: @post, post_comment: @post_comment %>
-
- <td>
-  コメント数：<%= @post.post_comments.count %>
-</td>
-
-<td>
-  <%= render 'public/favorites/favorite', post: @post %>
-</td>
+    <%= render "public/post_comments/form", post: @post, post_comment: @post_comment %>
+  </div>
+</div>

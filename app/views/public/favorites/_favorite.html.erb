@@ -1,18 +1,17 @@
-<% unless current_user&.guest_user? %>
-
-
-  ❤️ <%= post.favorites.count %>
-
+<% if current_user&.guest_user? %>
+  <span class="text-muted">❤️ <%= post.favorites.count %></span>
 <% else %>
-
-  <% if current_user.favorited?(post) %>
-    <%= link_to post_favorite_path(post.id, current_user.favorites.find_by(post_id: post.id).id), method: :delete do %>
+  <% if current_user&.favorited?(post) %>
+    <%= link_to post_favorite_path(post, current_user.favorites.find_by(post_id: post.id)),
+                method: :delete,
+                class: "favorite-link is-active" do %>
       ❤️ <%= post.favorites.count %>
     <% end %>
   <% else %>
-    <%= link_to post_favorites_path(post), method: :post do %>
-      ♡ <%= post.favorites.count %>
+    <%= link_to post_favorites_path(post),
+                method: :post,
+                class: "favorite-link" do %>
+      🤍 <%= post.favorites.count %>
     <% end %>
   <% end %>
-
 <% end %>

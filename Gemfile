@@ -69,3 +69,6 @@ end
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+
+gem 'bootstrap', '~> 5.3.2'
+gem 'sassc-rails'

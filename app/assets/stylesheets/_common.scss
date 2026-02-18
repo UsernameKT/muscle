@@ -1,0 +1,79 @@
+body {
+  background-color: #f5f6f8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+}
+
+.container-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
+.btn-primary {
+  border-radius: 30px;
+  padding: 6px 16px;
+}
+
+.btn-outline-secondary {
+  border-radius: 30px;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+.btn {
+  border-radius: 999px;
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+}
+
+.card-body {
+  padding: 18px;
+}
+
+.badge {
+  border-radius: 999px;
+}
+
+.alert {
+  border-radius: 12px;
+}
+
+.favorite-link {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.favorite-link:hover {
+  opacity: 0.7;
+}
+
+.favorite-link.is-active {
+  color: #e0245e; 
+}
+
+.comment-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  background: #e9ecef;
+  color: #495057;
+  flex: 0 0 36px;
+}
+
+.comment-bubble {
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px 12px;
+  border: 1px solid #eef0f2;
+}

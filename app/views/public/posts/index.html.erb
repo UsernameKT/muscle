@@ -1,19 +1,53 @@
+<h2 class="mb-4">みんなの筋トレ投稿<i class="fa-solid fa-person-walking"></i></h2>
 
-<h2>投稿一覧<i class="fa-solid fa-dumbbell"></i></h2>
 
-<% unless current_user&.guest_user? %>
-  <p><%= link_to "新規投稿",new_post_path %></p>
-<% end %>
 
 <% @posts.each do |post| %>
-  <div>
-    <h3><%= link_to post.title, post_path(post) %></h3>
-    <p>投稿者: <%= post.user.name || post.user.email %></p>
-    <p><%= simple_format(post.body) %></p>
-    <p>投稿日：<%= l post.created_at, format: :short %></p>
-    <% if user_signed_in? && post.user == current_user %>
-      <span><%= post.is_public ? "【公開】" : "【非公開】" %></span>
-    <% end %>
-  </div>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+    
 
+      
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div>
+          <%= link_to post.user.name, user_path(post.user), class:"text-decoration-none fw-bold" %>
+        </div>
+        <% if post.user == current_user %>
+            <% if post.is_public? %>
+              <span class="badge bg-success">公開</span>
+            <% else %>
+              <span class="badge bg-secondary">非公開</span>
+            <% end %>
+          <% else %>
+            <span class="badge bg-primary">公開投稿</span>
+          <% end %>
+
+        <% if user_signed_in? && current_user != post.user %>
+          <%= render "public/relationships/follow_button", user: post.user %>
+        <% end %>
+      </div>
+
+      
+      <h5 class="fw-bold">
+        <%= link_to post.title, post_path(post), class:"text-decoration-none text-dark" %>
+      </h5>
+
+      
+      <p class="text-muted">
+        <%= truncate(post.body, length: 80) %>
+      </p>
+
+      
+      <div class="d-flex justify-content-between text-muted small">
+        <div>
+          ❤️ <%= post.favorites.count %>
+          💬 <%= post.post_comments.count %>
+        </div>
+        <div>
+          <%= l post.created_at, format: :short %>
+        </div>
+      </div>
+
+    </div>
+  </div>
 <% end %>

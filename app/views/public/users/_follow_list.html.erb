@@ -1,0 +1,24 @@
+<h2><%= title %></h2>
+
+<% unless current_user&.guest_user? %>
+  <% if users.present? %>
+    <div class="list-group">
+      <% users.each do |u| %>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          <%= link_to u.name, user_path(u), class: "text-decoration-none" %>
+
+          <%# 自分自身にはフォローボタン出さない %>
+          <% if user_signed_in? && current_user != u %>
+            <%= render "public/relationships/follow_button", user: u %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p><%= empty_message %></p>
+  <% end %>
+
+  <div class="mt-3">
+    <%= link_to "←マイページに戻る", user_path(user), class: "btn btn-secondary btn-sm" %>
+  </div>
+<% end %>

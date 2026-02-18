@@ -5,9 +5,14 @@ class Public::RelationshipsController < ApplicationController
 
   def create
     user = User.find(params[:followed_id])
-    current_user.follow(user)
-    redirect_to request.referer
+  
+    unless current_user.following?(user)
+      current_user.follow(user)
+    end
+  
+    redirect_back(fallback_location: root_path)
   end
+  
 
   def destroy
     relationship = Relationship.find(params[:id])
