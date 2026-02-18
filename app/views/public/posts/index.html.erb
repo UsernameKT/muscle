@@ -22,7 +22,7 @@
             <span class="badge bg-primary">公開投稿</span>
           <% end %>
 
-        <% if user_signed_in? && current_user != post.user %>
+        <% unless current_user&.guest_user? %>
           <%= render "public/relationships/follow_button", user: post.user %>
         <% end %>
       </div>
