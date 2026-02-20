@@ -72,3 +72,5 @@ gem "net-imap"
 
 gem 'bootstrap', '~> 5.3.2'
 gem 'sassc-rails'
+
+gem "logger"
