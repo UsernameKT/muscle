@@ -6,7 +6,9 @@
   <% end %>
 </h2>
 
-<p>名前：<%= @user.name %></p>
+<%= render "public/searches/form" %>
+
+<p>ニックネーム：<%= @user.name %></p>
 
 
 <% if @user == current_user %>
