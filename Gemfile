@@ -74,3 +74,4 @@ gem 'bootstrap', '~> 5.3.2'
 gem 'sassc-rails'
 
 gem "logger"
+gem "concurrent-ruby", "1.3.4"
