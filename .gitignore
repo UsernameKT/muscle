@@ -40,3 +40,4 @@ yarn-debug.log*
 .yarn-integrity
 id_rsa
 /.env
+/vendor/bundle
