@@ -9,38 +9,26 @@
     <script src="https://kit.fontawesome.com/52b3005dcd.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-
-    <title>Muscle</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_pack_tag "application", media: "all", "data-turbolinks-track": "reload" %>
-    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
   </head>
 
   <body>
     <%= render "layouts/header" %>
 
     <div class="container-main">
-  <% flash.each do |type, message| %>
-    <% bs_class =
-      case type.to_s
-      when "notice" then "alert-success"
-      when "alert"  then "alert-danger"
-      else "alert-info"
-      end
-    %>
+      <% flash.each do |type, message| %>
+        <% bs_class =
+          case type.to_s
+          when "notice" then "alert alert-success"
+          when "alert" then "alert alert-danger"
+          else "alert alert-info"
+          end
+        %>
+        <div class="<%= bs_class %>">
+          <%= message %>
+        </div>
+      <% end %>
 
-    <div class="alert <%= bs_class %> alert-dismissible fade show" role="alert">
-      <%= message %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
       <%= yield %>
     </div>
   </body>
-  </head>
-
 </html>
