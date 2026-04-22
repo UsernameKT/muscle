@@ -66,7 +66,7 @@ class Public::PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :is_public)
+    params.require(:post).permit(:title, :body, :is_public,:category)
   end
 
   def postcomment_params

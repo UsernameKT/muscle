@@ -10,6 +10,21 @@
 <% end %>
 
 <%= form_with model: @post do |f| %>
+
+  <div class="mb-3">
+    <%= f.label :category, "カテゴリ", class: "form-label" %>
+      <%= f.select :category,
+        [
+          ["上半身トレ", "upper"],
+          ["下半身トレ", "lower"],
+          ["ランニング", "running"],
+          ["自重トレ", "bodyweight"],
+          ["ストレッチ", "stretch"],
+          ["休養日", "rest"]
+        ],
+      { prompt: "選択してください" },
+      class: "form-select" %>
+  </div>
   <div>
     <%= f.label :title, "タイトル" %><br>
     <%= f.text_field :title %>

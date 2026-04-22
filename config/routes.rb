@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  get 'calendar', to: 'calendars#index'
       devise_for :admin, skip: [:registrations, :password], controllers: {
         sessions: 'admin/sessions'
       }

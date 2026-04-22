@@ -1,16 +1,30 @@
 @use '~bootstrap/scss/bootstrap';
 
-.navbar-nav .nav-link {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
 .navbar-brand {
   font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.navbar-nav .nav-link {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 500;
 }
 
 @media (max-width: 767px) {
   .navbar-collapse {
     margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
   }
+
+  .navbar-nav .nav-item {
+    margin-bottom: 6px;
+  }
+}
+
+#calendar {
+  background-color: white;
+  padding: 16px;
+  border-radius: 12px;
 }
