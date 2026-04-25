@@ -29,6 +29,12 @@
       <% end %>
 
       <%= yield %>
+
+      <% if user_signed_in? && !current_user.guest_user? %>
+         <%= link_to new_post_path, class: "floating-post-btn" do %>
+           + 投稿
+          <% end %>
+      <% end %>
     </div>
   </body>
 </html>
