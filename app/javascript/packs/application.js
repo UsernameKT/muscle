@@ -15,3 +15,14 @@ import './calendar'
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+document.addEventListener("turbolinks:load", function() {
+  const toggler = document.querySelector(".navbar-toggler");
+  const menu = document.querySelector("#navbarNav");
+
+  if (!toggler || !menu) return;
+
+  toggler.addEventListener("click", function() {
+    menu.classList.toggle("show");
+  });
+});
